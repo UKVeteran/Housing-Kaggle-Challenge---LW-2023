@@ -22,7 +22,7 @@ ridge = Ridge(alpha= 0.9736842105263157)
 SVM = SVR(C=1, epsilon=0.05)
 adaboost = AdaBoostRegressor(base_estimator=DecisionTreeRegressor(max_depth=None))
 
-model9 = StackingRegressor(
+model = StackingRegressor(
     estimators=[("gboost", gboost),("adaboost", adaboost),("ridge", ridge), 
                 ("svm", SVM), ("cat", catboost), ("XGB", xgboost)],
     
@@ -31,7 +31,7 @@ model9 = StackingRegressor(
     n_jobs=-1
 )
 
-pipe_stacking = make_pipeline(preproc, model9)
+pipe_stacking = make_pipeline(preproc, model)
 score = cross_val_score(pipe_stacking, X, y_log, cv=5, scoring=rmse, n_jobs=-1)
 print(score.std())
 score.mean()
