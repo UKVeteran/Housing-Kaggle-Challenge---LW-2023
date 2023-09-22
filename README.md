@@ -15,6 +15,7 @@ It is a way to quantify the goodness of fit of your model to the data, with lowe
 
 # Stack'em Up - RMSE Score = 0.1204
 ```python
+
 catboost = CatBoostRegressor()
 xgboost = XGBRegressor(max_depth=10, n_estimators=300, learning_rate=0.05)
 gboost = GradientBoostingRegressor(n_estimators=100)
