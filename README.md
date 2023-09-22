@@ -14,4 +14,25 @@ In simpler terms, RMSE tells you how far off, on average, our model's prediction
 It is a way to quantify the goodness of fit of your model to the data, with lower values indicating a better fit.
 
 # Stack'em Up - RMSE Score = 0.1204
+```python
+catboost = CatBoostRegressor()
+xgboost = XGBRegressor(max_depth=10, n_estimators=300, learning_rate=0.05)
+gboost = GradientBoostingRegressor(n_estimators=100)
+ridge = Ridge(alpha= 0.9736842105263157)
+SVM = SVR(C=1, epsilon=0.05)
+adaboost = AdaBoostRegressor(base_estimator=DecisionTreeRegressor(max_depth=None))
 
+model9 = StackingRegressor(
+    estimators=[("gboost", gboost),("adaboost", adaboost),("ridge", ridge), 
+                ("svm", SVM), ("cat", catboost), ("XGB", xgboost)],
+    
+    final_estimator=LinearRegression(),
+    cv=5,
+    n_jobs=-1
+)
+
+pipe_stacking = make_pipeline(preproc, model9)
+score = cross_val_score(pipe_stacking, X, y_log, cv=5, scoring=rmse, n_jobs=-1)
+print(score.std())
+score.mean()
+```
